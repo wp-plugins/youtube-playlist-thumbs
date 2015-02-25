@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use the [ypt playlist_id=] shortcode to show a Youtube playlist. Videos within playlist can be triggered by links in page content.
+Use the [ypt playlist_id=] shortcode to show a Youtube playlist with side thumbnails. Playlist items can be triggered by links in page content.
 
 == Description ==
 
