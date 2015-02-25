@@ -1,14 +1,14 @@
 === Youtube Playlist Thumbs ===
 Contributors: jsphstls
 Donate link: http://wikimediafoundation.org/wiki/Ways_to_Give
-Tags: youtube, playlist, iframe, thumbnails, video, responsive
+Tags: youtube, playlist, iframe, thumbnails, video, responsive, shortcode
 Requires at least: 2.8.0
 Tested up to: 4.1.1
-Stable tag: 0.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use the [ypt playlist_id=] shortcode to show a Youtube playlist. Videos within playlist can be triggered by links on page.
+Use the [ypt playlist_id=] shortcode to show a Youtube playlist. Videos within playlist can be triggered by links in page content.
 
 == Description ==
 
@@ -48,36 +48,37 @@ Initial release
 == Upgrade Notice == 
 
 == Usage ==
+
 Place this shortcode in your posts or pages and insert your Youtube Playlist ID after the equal.
 
-	`[ypt playlist_id=]`
+	[ypt playlist_id=]
 
 To get a Youtube Playlist ID, copy the string after '&list=' when viewing a playlist on Youtube.com. See screenshot #3.
 
 To trigger the playback of an ordered video in the playlist, add this attribute to the element:
 
-	`data-ypt-index="X"`
+	data-ypt-index="X"
 
 Where 'X' is the order number of the video with the first video starting at 0. The third video would be 2.
 
 The 'Now Playing' thumbnail text and arrow is inserted by CSS. Add this rule to your CSS to change it:
 
-	`#ypt_thumbs .ypt-now-playing > span::after {
+	#ypt_thumbs .ypt-now-playing > span::after {
 	  content: "YOUR NEW TEXT" !important;
-	}`
+	}
 
 The height of the list of thumbnails is set by Javascript. It is first set when the player is ready and it adjusts when the window changes size. If you are using modals or any dynamic method to show/hide the player, you will need to trigger this function when the player is shown:
 
-	`yptThumbHeight();`
+	yptThumbHeight();
 
 For example, with Bootstrap modals:
 
-    `$('#videoModal').on('shown.bs.modal', function (e) { //modal shows
+    $('#videoModal').on('shown.bs.modal', function (e) { //modal shows
 		 yptThumbHeight(); //update the thumb height
-    });`
+    });
 
 A Javascript event takes place at the end of a playlist that you can use to trigger other events:
 
-	`Event.listen('playlistEnd', function () { //playist finished last video
+	Event.listen('playlistEnd', function () { //playist finished last video
 	    alert("That's all, thanks for watching!"); //do something
-	});`
+	});
