@@ -18,6 +18,8 @@ This plugin includes a small CSS file for minimal styling that was written to ta
 
 Youtube Playlist Thumbs plugin depends on the Youtube Iframe API. Any bugs experienced with that service will affect this plugin. Please check for bugs with Youtube Iframe API before reporting a bug for this plugin.
 
+See "Other Notes" for usage.
+
 == Installation ==
 
 1. Upload `youtube-playlist-thumbs.zip` to the `/wp-content/plugins/` directory
@@ -47,26 +49,35 @@ Initial release
 
 == Usage ==
 Place this shortcode in your posts or pages and insert your Youtube Playlist ID after the equal.
-	[ypt playlist_id=]
+
+	`[ypt playlist_id=]`
 
 To get a Youtube Playlist ID, copy the string after '&list=' when viewing a playlist on Youtube.com. See screenshot #3.
 
 To trigger the playback of an ordered video in the playlist, add this attribute to the element:
-	data-ypt-index="X"
-Where 'X' is the order number of the video with the first video starting at 0.
 
-The 'Now Playing' text is inserted by CSS. Add this rule to your CSS to change it:
-	#ypt_thumbs .ypt-now-playing > span::after {
+	`data-ypt-index="X"`
+
+Where 'X' is the order number of the video with the first video starting at 0. The third video would be 2.
+
+The 'Now Playing' thumbnail text and arrow is inserted by CSS. Add this rule to your CSS to change it:
+
+	`#ypt_thumbs .ypt-now-playing > span::after {
 	  content: "YOUR NEW TEXT" !important;
-	}
-The height of the list of thumbnails is set by Javascript. It is first set when the player is ready and it adjusts when the window changes size (responsive). If you are using modals or any dynamic method to show/hide the player, you will need to trigger this function when the player is shown:
-	yptThumbHeight();
+	}`
+
+The height of the list of thumbnails is set by Javascript. It is first set when the player is ready and it adjusts when the window changes size. If you are using modals or any dynamic method to show/hide the player, you will need to trigger this function when the player is shown:
+
+	`yptThumbHeight();`
 
 For example, with Bootstrap modals:
-    $('#videoModal').on('shown.bs.modal', function (e) { //the video modal is shown
+
+    `$('#videoModal').on('shown.bs.modal', function (e) { //modal shows
 		 yptThumbHeight(); //update the thumb height
-    });
-A Javascript event takes place at the end of a playlist:
-	Event.listen('playlistEnd', function () { //playist finished last video
+    });`
+
+A Javascript event takes place at the end of a playlist that you can use to trigger other events:
+
+	`Event.listen('playlistEnd', function () { //playist finished last video
 	    alert("That's all, thanks for watching!"); //do something
-	});
+	});`
