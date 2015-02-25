@@ -46,31 +46,27 @@ Initial release
 == Upgrade Notice == 
 
 == Usage ==
-Place `[ypt playlist_id=]` in your posts or pages and insert your Youtube Playlist ID after the equal.
+Place this shortcode in your posts or pages and insert your Youtube Playlist ID after the equal.
+	[ypt playlist_id=]
 
 To get a Youtube Playlist ID, copy the string after '&list=' when viewing a playlist on Youtube.com. See screenshot #3.
 
 To trigger the playback of an ordered video in the playlist, add this attribute to the element:
-'data-ypt-index="X"'
+	data-ypt-index="X"
 Where 'X' is the order number of the video with the first video starting at 0.
 
 The 'Now Playing' text is inserted by CSS. Add this rule to your CSS to change it:
-
-	'#ypt_thumbs .ypt-now-playing > span::after {
+	#ypt_thumbs .ypt-now-playing > span::after {
 	  content: "YOUR NEW TEXT" !important;
-	}'
-
+	}
 The height of the list of thumbnails is set by Javascript. It is first set when the player is ready and it adjusts when the window changes size (responsive). If you are using modals or any dynamic method to show/hide the player, you will need to trigger this function when the player is shown:
-	**yptThumbHeight();**
+	yptThumbHeight();
 
 For example, with Bootstrap modals:
-
     $('#videoModal').on('shown.bs.modal', function (e) { //the video modal is shown
 		 yptThumbHeight(); //update the thumb height
     });
-
 A Javascript event takes place at the end of a playlist:
-
 	Event.listen('playlistEnd', function () { //playist finished last video
 	    alert("That's all, thanks for watching!"); //do something
 	});
