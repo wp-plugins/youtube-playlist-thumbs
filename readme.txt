@@ -8,11 +8,11 @@ Stable tag: 0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use the '[ypt playlist_id=]' shortcode to show a Youtube playlist. Videos within playlist can be triggered by links on page.
+Use the [ypt playlist_id=] shortcode to show a Youtube playlist. Videos within playlist can be triggered by links on page.
 
 == Description ==
 
-Install and activate the plugin. Insert the '[ypt playlist_id=]' shortcode in your page or post and insert your playlist ID ater the equal. When that content is published and viewed, a Youtube player will appear and a column of thumbnails will load to the right of the player. Clicking the thumbnails switches between videos.
+Install and activate the plugin. Insert the [ypt playlist_id=] shortcode in your page or post and insert your playlist ID ater the equal. When that content is published and viewed, a Youtube player will appear and a column of thumbnails will load to the right of the player. Clicking the thumbnails switches between videos.
 
 This plugin includes a small CSS file for minimal styling that was written to target the specific IDs of the thumb list and player.
 
