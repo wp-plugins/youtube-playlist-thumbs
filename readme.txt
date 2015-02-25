@@ -1,0 +1,76 @@
+=== Youtube Playlist Thumbs ===
+Contributors: jsphstls
+Donate link: http://wikimediafoundation.org/wiki/Ways_to_Give
+Tags: youtube, playlist, iframe, thumbnails, video, responsive
+Requires at least: 2.8.0
+Tested up to: 4.1.1
+Stable tag: 0.1
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Use the '[ypt playlist_id=]' shortcode to show a Youtube playlist. Videos within playlist can be triggered by links on page.
+
+== Description ==
+
+Install and activate the plugin. Insert the '[ypt playlist_id=]' shortcode in your page or post and insert your playlist ID ater the equal. When that content is published and viewed, a Youtube player will appear and a column of thumbnails will load to the right of the player. Clicking the thumbnails switches between videos.
+
+This plugin includes a small CSS file for minimal styling that was written to target the specific IDs of the thumb list and player.
+
+Youtube Playlist Thumbs plugin depends on the Youtube Iframe API. Any bugs experienced with that service will affect this plugin. Please check for bugs with Youtube Iframe API before reporting a bug for this plugin.
+
+== Installation ==
+
+1. Upload `youtube-playlist-thumbs.zip` to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+
+== Frequently Asked Questions ==
+
+= Why develop this plugin? =
+
+Youtube recently changed their playlist Iframe layout so that the thumb navigation is collapsed.
+Youtube Iframes, without the API, do not work well with modals and similar dynmaic elements.
+The Youtube Iframe API allows player control by other page elements such as links and buttons.
+
+== Screenshots ==
+
+1. How the player should appear.
+2. Using the shortcode.
+3. Getting a Youtube Playlist ID.
+4. Adding an element to trigger a video in the playlist.
+
+== Changelog ==
+
+= 0.1 =
+Initial release
+
+== Upgrade Notice == 
+
+== Usage ==
+Place `[ypt playlist_id=]` in your posts or pages and insert your Youtube Playlist ID after the equal.
+
+To get a Youtube Playlist ID, copy the string after '&list=' when viewing a playlist on Youtube.com. See screenshot #3.
+
+To trigger the playback of an ordered video in the playlist, add this attribute to the element:
+'data-ypt-index="X"'
+Where 'X' is the order number of the video with the first video starting at 0.
+
+The 'Now Playing' text is inserted by CSS. Add this rule to your CSS to change it:
+
+	'#ypt_thumbs .ypt-now-playing > span::after {
+	  content: "YOUR NEW TEXT" !important;
+	}'
+
+The height of the list of thumbnails is set by Javascript. It is first set when the player is ready and it adjusts when the window changes size (responsive). If you are using modals or any dynamic method to show/hide the player, you will need to trigger this function when the player is shown:
+	**yptThumbHeight();**
+
+For example, with Bootstrap modals:
+
+    $('#videoModal').on('shown.bs.modal', function (e) { //the video modal is shown
+		 yptThumbHeight(); //update the thumb height
+    });
+
+A Javascript event takes place at the end of a playlist:
+
+	Event.listen('playlistEnd', function () { //playist finished last video
+	    alert("That's all, thanks for watching!"); //do something
+	});
