@@ -55,11 +55,13 @@ Place this shortcode in your posts or pages and insert your Youtube Playlist ID 
 
 To get a Youtube Playlist ID, copy the string after '&list=' when viewing a playlist on Youtube.com. See screenshot #3.
 
-To trigger the playback of an ordered video in the playlist, add this attribute to the element:
+To trigger the playback of an ordered video in the playlist, add this attribute to the clickable element:
 
 	data-ypt-index="X"
 
-Where 'X' is the order number of the video with the first video starting at 0. The third video would be 2.
+Where 'X' is the order number of the video with the first video starting at 0. The **third video would be 2**. For example:
+
+	<button data-ypt-index="2">Click to play the third video.</button>
 
 The 'Now Playing' thumbnail text and arrow is inserted by CSS. Add this rule to your CSS to change it:
 
