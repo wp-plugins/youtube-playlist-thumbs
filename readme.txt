@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use the [ypt playlist_id=] shortcode to show a Youtube playlist with side thumbnails. Playlist items can be triggered by links in page content.
+Use the [ypt playlist_id=] shortcode to show a Youtube playlist with side thumbnails. Playlist videos can be triggered by links in page content.
 
 == Description ==
 
@@ -45,7 +45,13 @@ The Youtube Iframe API allows player control by other page elements such as link
 = 0.1 =
 Initial release
 
+= 0.2 =
+Improved 'playlistEnd' event.
+
 == Upgrade Notice == 
+
+= 0.2 =
+This update changs the way 'playlistEnd' is used.
 
 == Usage ==
 
@@ -79,8 +85,8 @@ For example, with Bootstrap modals:
 		 yptThumbHeight(); //update the thumb height
     });
 
-A Javascript event takes place at the end of a playlist that you can use to trigger other events:
+A Javascript event triggers at the end of a playlist. It can used to trigger other events:
 
-	Event.listen('playlistEnd', function () { //playist finished last video
+	$(document).on('playlistEnd', function () { //playlist finished last video
 	    alert("That's all, thanks for watching!"); //do something
 	});
