@@ -87,6 +87,6 @@ For example, with Bootstrap modals:
 
 A Javascript event triggers at the end of a playlist. It can used to trigger other events:
 
-	$(document).on('playlistEnd', function () { //playlist finished last video
+	jQuery(document).on('playlistEnd', function () { //playlist finished last video
 	    alert("That's all, thanks for watching!"); //do something
 	});
