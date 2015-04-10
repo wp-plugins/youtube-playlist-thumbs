@@ -48,6 +48,9 @@ Initial release
 = 0.2 =
 Improved 'playlistEnd' event.
 
+= 0.2.5 =
+More global variables for use in custom JS.
+
 == Upgrade Notice == 
 
 = 0.2 =

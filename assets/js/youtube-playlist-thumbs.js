@@ -4,8 +4,11 @@ tag.src = "https://www.youtube.com/iframe_api"; //Set the SRC to get the API
 var firstScriptTag = document.getElementsByTagName('script')[0]; //Find the first script tag in the html
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); //Put this script tag before the first one
 
-//Set some variables
+//Set some global variables
 var player;
+var ypt_player;
+var playlistID;
+var ypt_thumbs;
 var nowPlaying = "ypt-now-playing"; //For marking the current thumb
 var nowPlayingClass = "." + nowPlaying;
 var ypt_index = 0; //Playlists begin at the first video by default
@@ -13,9 +16,9 @@ var ypt_index = 0; //Playlists begin at the first video by default
 jQuery(document).ready(function($) { //let the dom load first
 
   //Gather information from the DOM...
-  var ypt_player = document.getElementById('player');
-  var playlistID = ypt_player.getAttribute('data-pl');
-  var ypt_thumbs = document.getElementById('ypt_thumbs');
+  ypt_player = document.getElementById('player');
+  playlistID = ypt_player.getAttribute('data-pl');
+  ypt_thumbs = document.getElementById('ypt_thumbs');
 
   window.yptThumbHeight = function(){
     ypt_thumbs.style.height = document.getElementById('player').clientHeight + 'px'; //change the height of the thumb list
