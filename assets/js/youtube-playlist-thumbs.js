@@ -20,7 +20,7 @@ jQuery(document).ready(function($) { //let the dom load first
   playlistID = ypt_player.getAttribute('data-pl');
   ypt_thumbs = document.getElementById('ypt_thumbs');
 
-  window.yptThumbHeight = function(){
+  window.yptThumbHeight = function(){ //global scope
     ypt_thumbs.style.height = document.getElementById('player').clientHeight + 'px'; //change the height of the thumb list
     //breaks if ypt_player.clientHeight + 'px';
   }

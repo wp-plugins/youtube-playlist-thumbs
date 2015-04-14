@@ -33,6 +33,10 @@ Youtube recently changed their playlist Iframe layout so that the thumb navigati
 Youtube Iframes, without the API, do not work well with modals and similar dynmaic elements.
 The Youtube Iframe API allows player control by other page elements such as links and buttons.
 
+= How many shortcodes can I use on one post/page? =
+
+Just one. Youtube Iframe API is designed to work with one player at a time. Notice that on Youtube.com there is only one video player and links to multiple videos.
+
 == Screenshots ==
 
 1. How the player should appear.
@@ -51,10 +55,16 @@ Improved 'playlistEnd' event.
 = 0.2.5 =
 More global variables for use in custom JS.
 
+= 0.3.0 =
+.js only loads if shortcode is present.
+
 == Upgrade Notice == 
 
 = 0.2 =
 This update changs the way 'playlistEnd' is used.
+
+= 0.3.0 =
+Pagespeed increase.
 
 == Usage ==
 
