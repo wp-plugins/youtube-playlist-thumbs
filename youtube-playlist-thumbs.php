@@ -2,7 +2,7 @@
 /*
 Plugin Name: Youtube Playlist Thumbs
 Description: Use the [ypt] shortcode to show a Youtube playlist. Videos within playlist can be triggered by links in page content.
-Version: 0.3.0
+Version: 0.4.0
 Author: Joseph Stiles
 License: GPL2
 */
@@ -30,7 +30,7 @@ function ypt_function($atts) {
 
      $playlistId = $a['playlist_id'];
 
-     $ypt_output =  '<div id="ypt_wrapper">  
+     $ypt_output =  '<div id="ypt_wrapper">
      <div class="video">
       <div id="player" data-pl="'.$playlistId.'"></div>
     </div>
