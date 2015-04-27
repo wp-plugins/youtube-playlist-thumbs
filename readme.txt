@@ -3,7 +3,7 @@ Contributors: jsphstls
 Donate link: http://wikimediafoundation.org/wiki/Ways_to_Give
 Tags: youtube, playlist, iframe, thumbnails, video, responsive, shortcode
 Requires at least: 2.8.0
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,10 @@ The Youtube Iframe API allows player control by other page elements such as link
 
 Just one. Youtube Iframe API is designed to work with one player at a time. Notice that on Youtube.com there is only one video player and links to multiple videos.
 
+= How many videos can I have in a playlist? =
+
+The current limit set by Youtube for a single request of playlist data (thumbs and titles) is 50.
+
 == Screenshots ==
 
 1. How the player should appear.
@@ -58,13 +62,19 @@ More global variables for use in custom JS.
 = 0.3.0 =
 .js only loads if shortcode is present.
 
-== Upgrade Notice == 
+= 0.4.0 =
+Thumbnail list limit raised from 25 to 50.
+
+== Upgrade Notice ==
 
 = 0.2 =
 This update changs the way 'playlistEnd' is used.
 
 = 0.3.0 =
 Pagespeed increase.
+
+= 0.4.0 =
+Thumbnail list limit raised from 25 to 50.
 
 == Usage ==
 
