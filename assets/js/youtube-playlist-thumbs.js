@@ -30,7 +30,7 @@ jQuery(document).ready(function($) { //let the dom load first
     player = new YT.Player('player', {
       height: '360',
       width: '640',
-      playerVars: 
+      playerVars:
       {
         listType:'playlist',
         list: playlistID
@@ -40,13 +40,13 @@ jQuery(document).ready(function($) { //let the dom load first
         'onStateChange': onPlayerStateChange
       }
     });
-  } //onYouTubeIframeAPIReady() 
+  } //onYouTubeIframeAPIReady()
 
   //Once the player is ready...
   function onPlayerReady(event) {
     yptThumbHeight(); //Set the thumb containter height
     //Get the playlist data
-    var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/' + playlistID + '?v=2&alt=json&callback=?';
+    var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/' + playlistID + '?v=2&alt=json&max-results=50&callback=?';
       $.getJSON(playListURL, function(data) {
           var list_data = "";
           $.each(data.feed.entry, function(i, item) {
@@ -62,7 +62,7 @@ jQuery(document).ready(function($) { //let the dom load first
   }//function onPlayerReady(event) {
 
   // When the player does something...
-  function onPlayerStateChange(event) {  
+  function onPlayerStateChange(event) {
 
     //Let's check on what video is playing
     var currentIndex = player.getPlaylistIndex();
@@ -80,10 +80,10 @@ jQuery(document).ready(function($) { //let the dom load first
     }
 
     //if a video has finished, and the current index is the last video, and that thumb already has the nowplaying class
-    if (event.data == YT.PlayerState.ENDED && currentIndex == the_thumbs.length - 1 && the_thumbs[currentIndex].className == nowPlaying){ 
+    if (event.data == YT.PlayerState.ENDED && currentIndex == the_thumbs.length - 1 && the_thumbs[currentIndex].className == nowPlaying){
       jQuery.event.trigger('playlistEnd'); //Trigger a global event
      }
-  } //function onPlayerStateChange(event) 
+  } //function onPlayerStateChange(event)
 
   //When the user changes the window size...
   window.addEventListener('resize', function(event){
