@@ -5,25 +5,65 @@ var firstScriptTag = document.getElementsByTagName('script')[0]; //Find the firs
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); //Put this script tag before the first one
 
 //Set some global variables
-var player;
-var ypt_player;
-var playlistID;
-var ypt_thumbs;
+var player; //The Youtube API player
+var ypt_player = document.getElementById('player');
+var playlistID = ypt_player.getAttribute('data-pl');
+var ypt_thumbs = document.getElementById('ypt_thumbs');
 var nowPlaying = "ypt-now-playing"; //For marking the current thumb
 var nowPlayingClass = "." + nowPlaying;
 var ypt_index = 0; //Playlists begin at the first video by default
 
-jQuery(document).ready(function($) { //let the dom load first
+function getPlaylistData(playlistID, video_list, page_token) { //Makes a single request to Youtube Data API
+  var apiKey = 'AIzaSyArQNfmJDkjxP_ZyZIocbyuDeyTanf4Rl8';
+  var theUrl =
+  'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet' +
+  '&maxResults='+ 50 + //Can be anything from 1-50, 50 should limit the quota usage
+  '&playlistId=' + playlistID +
+  '&key=' + apiKey
+  ;
+  if(page_token){ theUrl +=('&pageToken=' + page_token );} //If there is page token, start there
+  var xmlHttp = null;
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open( "GET", theUrl, true);
+  xmlHttp.send( null );
+  xmlHttp.onload = function (e) { //when the request comes back
+    buildJSON(xmlHttp.responseText, video_list, playlistID); //send the data to buildJSON
+  };
+}
 
-  //Gather information from the DOM...
-  ypt_player = document.getElementById('player');
-  playlistID = ypt_player.getAttribute('data-pl');
-  ypt_thumbs = document.getElementById('ypt_thumbs');
-
-  window.yptThumbHeight = function(){ //global scope
-    ypt_thumbs.style.height = document.getElementById('player').clientHeight + 'px'; //change the height of the thumb list
-    //breaks if ypt_player.clientHeight + 'px';
+function buildJSON(response, list, playlistID){ //Takes the text response and adds it to any existing JSON data
+  var results = JSON.parse(response); //Parse it
+  if(!list){ list = []; } //If there is no list to add to, make one
+  list.push.apply(list,results.items); //Add JSON data to the list
+  if(results.nextPageToken){ //If the results included a page token
+    getPlaylistData(playlistID, list, results.nextPageToken); //Create another data API request including the current list and page token
+  } else { //If there is not a next-page token
+    buildHTML(list); //Send the JSON data to buildHTML
   }
+}
+
+function buildHTML(data){ //Turns JSON data into HTML elements
+  var list_data = ''; //A string container
+  for(i = 0; i < data.length; i++){ //Do this to each item in the JSON list
+    var item = data[i].snippet; //Each Youtube playlist item snippet
+    list_data += '<li data-ypt-index="'+ i +'"><p>' + item.title + '</p><span><img alt="'+ item.title +'" src="'+ item.thumbnails.medium.url +'"/></span></li>'; //create an element and add it to the list
+  }
+  ypt_thumbs.innerHTML = list_data; //After the for loop, insert that list of links into the html
+}
+
+function yptThumbHeight(){
+  ypt_thumbs.style.height = document.getElementById('player').clientHeight + 'px'; //change the height of the thumb list
+  //breaks if ypt_player.clientHeight + 'px';
+}
+
+//Once the player is ready...
+function onPlayerReady(event) {
+  yptThumbHeight(); //Set the thumb containter height
+}//function onPlayerReady(event)
+
+getPlaylistData(playlistID); //Begin the process of building the thumbnail list
+
+jQuery(document).ready(function($) { //let the dom load first
 
   //Once the Youtube Iframe API is ready...
   window.onYouTubeIframeAPIReady = function() { // Creates an <iframe> (and YouTube player) after the API code downloads. must be globally available
@@ -40,26 +80,7 @@ jQuery(document).ready(function($) { //let the dom load first
         'onStateChange': onPlayerStateChange
       }
     });
-  } //onYouTubeIframeAPIReady()
-
-  //Once the player is ready...
-  function onPlayerReady(event) {
-    yptThumbHeight(); //Set the thumb containter height
-    //Get the playlist data
-    var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/' + playlistID + '?v=2&alt=json&max-results=50&callback=?';
-      $.getJSON(playListURL, function(data) {
-          var list_data = "";
-          $.each(data.feed.entry, function(i, item) {
-              var feedTitle = item.title.$t;
-              var feedURL = item.link[1].href;
-              var fragments = feedURL.split("/");
-              var videoID = fragments[fragments.length - 2];
-              var thumb = "http://img.youtube.com/vi/"+ videoID +"/mqdefault.jpg";
-              list_data += '<li data-ypt-index="'+ i +'"><p>' + feedTitle + '</p><span><img alt="'+ feedTitle +'" src="'+ thumb +'"</span></li>';
-          });
-          $(list_data).appendTo(ypt_thumbs);
-      });
-  }//function onPlayerReady(event) {
+  }; //onYouTubeIframeAPIReady()
 
   // When the player does something...
   function onPlayerStateChange(event) {
@@ -82,7 +103,7 @@ jQuery(document).ready(function($) { //let the dom load first
     //if a video has finished, and the current index is the last video, and that thumb already has the nowplaying class
     if (event.data == YT.PlayerState.ENDED && currentIndex == the_thumbs.length - 1 && the_thumbs[currentIndex].className == nowPlaying){
       jQuery.event.trigger('playlistEnd'); //Trigger a global event
-     }
+    }
   } //function onPlayerStateChange(event)
 
   //When the user changes the window size...
@@ -94,18 +115,18 @@ jQuery(document).ready(function($) { //let the dom load first
   $(document).on('click','[data-ypt-index]:not(".ypt-now-playing")',function(e){ //click on a thumb that is not currently playing
     ypt_index = Number($(this).attr('data-ypt-index')); //Get the ypt_index of the clicked item
     if(navigator.userAgent.match(/(iPad|iPhone|iPod)/g)){ //if IOS
-       player.cuePlaylist({ //cue is required for IOS 7
-          listType: 'playlist',
-          list: playlistID,
-          index: ypt_index,
-          suggestedQuality: 'hd720' //quality is required for cue to work, for now
-          // https://code.google.com/p/gdata-issues/issues/detail?id=5411
+      player.cuePlaylist({ //cue is required for IOS 7
+        listType: 'playlist',
+        list: playlistID,
+        index: ypt_index,
+        suggestedQuality: 'hd720' //quality is required for cue to work, for now
+        // https://code.google.com/p/gdata-issues/issues/detail?id=5411
       }); //player.cuePlaylist
     } else { //yay it's not IOS!
-      player.playVideoAt(ypt_index); //Play the new video, does not work for IOS 7
-    }
-    $(nowPlayingClass).removeClass(nowPlaying); //Remove "now playing" from the thumb that is no longer playing
-    //When the new video starts playing, its thumb will get the now playing class
-  }); //$(document).on('click','#ypt_thumbs...
+    player.playVideoAt(ypt_index); //Play the new video, does not work for IOS 7
+  }
+  $(nowPlayingClass).removeClass(nowPlaying); //Remove "now playing" from the thumb that is no longer playing
+  //When the new video starts playing, its thumb will get the now playing class
+}); //$(document).on('click','#ypt_thumbs...
 
-}); //jQuery(document).ready(function( $ ) {
+}); //jQuery(document).ready(function( $ )
