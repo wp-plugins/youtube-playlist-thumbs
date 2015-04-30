@@ -39,7 +39,7 @@ Just one. Youtube Iframe API is designed to work with one player at a time. Noti
 
 = How many videos can I have in a playlist? =
 
-The current limit set by Youtube for a single request of playlist data (thumbs and titles) is 50.
+As of Version 0.5.0 the limit is 200, which is also the maximum number of videos that Youtube allows in one playlist.
 
 == Screenshots ==
 
@@ -65,6 +65,9 @@ More global variables for use in custom JS.
 = 0.4.0 =
 Thumbnail list limit raised from 25 to 50.
 
+= 0.5.0 =
+Thumbnail list limit raised to 200. Speed increase.
+
 == Upgrade Notice ==
 
 = 0.2 =
@@ -75,6 +78,9 @@ Pagespeed increase.
 
 = 0.4.0 =
 Thumbnail list limit raised from 25 to 50.
+
+= 0.5.0 =
+Thumbnail list limit raised to 200. Speed increase.
 
 == Usage ==
 

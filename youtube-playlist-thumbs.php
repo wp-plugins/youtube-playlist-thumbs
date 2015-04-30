@@ -2,7 +2,7 @@
 /*
 Plugin Name: Youtube Playlist Thumbs
 Description: Use the [ypt] shortcode to show a Youtube playlist. Videos within playlist can be triggered by links in page content.
-Version: 0.4.0
+Version: 0.5.0
 Author: Joseph Stiles
 License: GPL2
 */
@@ -18,7 +18,7 @@ function ypt_function($atts) {
 
   wp_enqueue_script( //load the script in the footer if shortcode is found
     'youtube-playlist-thumbs', //ID used in <script>
-    plugin_dir_url( __FILE__ ) . 'assets/js/youtube-playlist-thumbs.js', //go get it
+    plugin_dir_url( __FILE__ ) . 'assets/js/youtube-playlist-thumbs.min.js', //go get it
     array( 'jquery' ), //it needs jQuery
     '0.2', //version
     false //load it in the footer
@@ -47,5 +47,4 @@ function ypt_assets() {
 }
 
 add_action( 'wp_enqueue_scripts', 'ypt_assets' );
-
 // youtube-playlist-thumbs.js does all the heavy lifting.
