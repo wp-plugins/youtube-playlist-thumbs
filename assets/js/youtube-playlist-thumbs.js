@@ -4,7 +4,6 @@ tag.src = "https://www.youtube.com/iframe_api"; //Set the SRC to get the API
 var firstScriptTag = document.getElementsByTagName('script')[0]; //Find the first script tag in the html
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); //Put this script tag before the first one
 
-//Set some global variables
 var player; //The Youtube API player
 var ypt_player = document.getElementById('player');
 var playlistID = ypt_player.getAttribute('data-pl');
@@ -17,7 +16,7 @@ function getPlaylistData(playlistID, video_list, page_token) { //Makes a single 
   var apiKey = 'AIzaSyArQNfmJDkjxP_ZyZIocbyuDeyTanf4Rl8';
   var theUrl =
   'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet' +
-  '&maxResults='+ 50 + //Can be anything from 1-50, 50 should limit the quota usage
+  '&maxResults='+ 50 + //Can be anything from 1-50
   '&playlistId=' + playlistID +
   '&key=' + apiKey
   ;
@@ -56,14 +55,13 @@ function yptThumbHeight(){
   //breaks if ypt_player.clientHeight + 'px';
 }
 
-//Once the player is ready...
-function onPlayerReady(event) {
+function onPlayerReady(event) { //Once the player is ready...
   yptThumbHeight(); //Set the thumb containter height
-}//function onPlayerReady(event)
+}
 
-getPlaylistData(playlistID); //Begin the process of building the thumbnail list
+getPlaylistData(playlistID);
 
-jQuery(document).ready(function($) { //let the dom load first
+jQuery(document).ready(function($) {
 
   //Once the Youtube Iframe API is ready...
   window.onYouTubeIframeAPIReady = function() { // Creates an <iframe> (and YouTube player) after the API code downloads. must be globally available
