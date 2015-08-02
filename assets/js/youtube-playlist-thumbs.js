@@ -62,24 +62,21 @@ function onPlayerReady(event) { //Once the player is ready...
 
 getPlaylistData(playlistID);
 
-jQuery(document).ready(function($) {
-
-  //Once the Youtube Iframe API is ready...
-  window.onYouTubeIframeAPIReady = function() { // Creates an <iframe> (and YouTube player) after the API code downloads. must be globally available
-    player = new YT.Player('player', {
-      height: '360',
-      width: '640',
-      playerVars:
-      {
-        listType:'playlist',
-        list: playlistID
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }; //onYouTubeIframeAPIReady()
+//Once the Youtube Iframe API is ready...
+window.onYouTubeIframeAPIReady = function() { // Creates an <iframe> (and YouTube player) after the API code downloads. must be globally available
+  player = new YT.Player('player', {
+    height: '360',
+    width: '640',
+    playerVars:
+    {
+      listType:'playlist',
+      list: playlistID
+    },
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
 
   // When the player does something...
   function onPlayerStateChange(event) {
@@ -111,8 +108,8 @@ jQuery(document).ready(function($) {
   });
 
   //When the user clicks an element with a playlist index...
-  $(document).on('click','[data-ypt-index]:not(".ypt-now-playing")',function(e){ //click on a thumb that is not currently playing
-    ypt_index = Number($(this).attr('data-ypt-index')); //Get the ypt_index of the clicked item
+  jQuery(document).on('click','[data-ypt-index]:not(".ypt-now-playing")',function(e){ //click on a thumb that is not currently playing
+    ypt_index = Number(jQuery(this).attr('data-ypt-index')); //Get the ypt_index of the clicked item
     if(navigator.userAgent.match(/(iPad|iPhone|iPod)/g)){ //if IOS
       player.cuePlaylist({ //cue is required for IOS 7
         listType: 'playlist',
@@ -124,8 +121,7 @@ jQuery(document).ready(function($) {
     } else { //yay it's not IOS!
     player.playVideoAt(ypt_index); //Play the new video, does not work for IOS 7
   }
-  $(nowPlayingClass).removeClass(nowPlaying); //Remove "now playing" from the thumb that is no longer playing
+  jQuery(nowPlayingClass).removeClass(nowPlaying); //Remove "now playing" from the thumb that is no longer playing
   //When the new video starts playing, its thumb will get the now playing class
-}); //$(document).on('click','#ypt_thumbs...
-
-}); //jQuery(document).ready(function( $ )
+}); //jQuery(document).on('click','#ypt_thumbs...
+};
