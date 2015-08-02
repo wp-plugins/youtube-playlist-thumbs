@@ -3,7 +3,7 @@ Contributors: jsphstls
 Donate link: http://wikimediafoundation.org/wiki/Ways_to_Give
 Tags: youtube, playlist, iframe, thumbnails, video, responsive, shortcode
 Requires at least: 2.8.0
-Tested up to: 4.2
+Tested up to: 4.2.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,9 @@ Thumbnail list limit raised to 200. Speed increase.
 = 0.5.1 =
 Private videos in a playlist will be skipped.
 
+= 0.5.2 =
+Patch for thumbnail clicks not playing video.
+
 == Upgrade Notice ==
 
 = 0.2 =
@@ -89,6 +92,9 @@ Thumbnail list limit raised to 200. Speed increase.
 
 = 0.5.1 =
 Private videos in a playlist will be skipped.
+
+= 0.5.2 =
+Patch for thumbnail clicks not playing video.
 
 == Usage ==
 
